@@ -1,0 +1,8 @@
+<!-- Derived from dali 305 vendor/etc/vintf/manifest.xml. -->
+<manifest version="1.0" type="device">
+    <hal format="aidl">
+        <name>android.hardware.secure_element</name>
+        <version>1</version>
+        <fqname>ISecureElement/eSE1</fqname>
+    </hal>
+</manifest>

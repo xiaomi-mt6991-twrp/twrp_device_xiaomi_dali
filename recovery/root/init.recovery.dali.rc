@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: Apache-2.0
+# OS3.0.305.0.WONCNXM. Platform init has already loaded first-stage modules.
+on init
+    setprop sys.usb.controller 16701000.usb0
+    insmod /lib/modules/mtk-lpm.ko
+    insmod /lib/modules/mtk-lpm-dbg-common-v2.ko
+    insmod /lib/modules/mtk-lpm-plat-v2.ko
+    insmod /lib/modules/nxp_i2c.ko
+    insmod /lib/modules/p73.ko
+    write /sys/module/firmware_class/parameters/path /odm/firmware,/vendor/firmware
+    insmod /lib/modules/xiaomi_touch_dali.ko
+    insmod /lib/modules/scp.ko
+    insmod /lib/modules/goodix_core_dali.ko
+    insmod /lib/modules/focaltech_touch_dali.ko
+    insmod /lib/modules/cl_dsp-core.ko
+    insmod /lib/modules/cs40l26-core.ko
+    insmod /lib/modules/cs40l26-i2c.ko
+
+on property:vendor.teefs_state=ready
+    start vendor.keymint-mitee
+    start vendor.gatekeeper_mitee
+    start vendor.mitee.mtdservice
+    start vendor.secure_element_hal_service
+
+on boot
+    start mtk.plpath.utils.link
+    start vibratorfeature-hal-service
+    wait /dev/xiaomi-touch 10
+    start mt6991-touch-report
